@@ -65,7 +65,7 @@ func (s *server) Stop(context.Context, *sidecar.Request) (*sidecar.Response, err
 		Code: 1,
 	}, nil
 }
-func main() {
+func StartServer() {
 	listener, err := net.Listen("tcp", "127.0.0.1:8899")
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
@@ -75,4 +75,8 @@ func main() {
 	grpcServer := grpc.NewServer(opts...)
 	sidecar.RegisterSidecarServer(grpcServer, NewServer())
 	grpcServer.Serve(listener)
+}
+func main() {
+	StartServer()
+
 }
